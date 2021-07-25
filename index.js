@@ -42,6 +42,17 @@ app.get('/info', (request, response) => {
     response.send('<div>' + numberOfPhonebookEntries + timestamp + '</div>');
 });
 
+app.get('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id);
+
+    const phoneBookEntry = phonebookEntries.find(entry => entry.id === id);
+
+    if (!phoneBookEntry) {
+        return response.status(404).end();
+    }
+    response.json(phoneBookEntry);
+});
+
 
 app.listen(PORT, () => {
     console.log('Phonebook application listening on port ' + PORT);
