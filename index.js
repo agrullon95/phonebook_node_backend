@@ -29,6 +29,19 @@ app.get('/api/persons', (request, response) => {
     response.json(phonebookEntries);
 });
 
+app.get('/info', (request, response) => {
+    const infoResponseObj = {
+        numberOfPhonebookEntries: phonebookEntries.length,
+        requestTimestamp: new Date().toUTCString()
+    };
+
+
+    const numberOfPhonebookEntries = '<p>Phonebook has info for ' + infoResponseObj.numberOfPhonebookEntries + (infoResponseObj.numberOfPhonebookEntries === 1 ? ' person' : ' people') + '</p>';
+    const timestamp = '<p>' + infoResponseObj.requestTimestamp + '</p>';
+
+    response.send('<div>' + numberOfPhonebookEntries + timestamp + '</div>');
+});
+
 
 app.listen(PORT, () => {
     console.log('Phonebook application listening on port ' + PORT);
