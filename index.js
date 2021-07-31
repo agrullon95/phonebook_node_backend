@@ -1,7 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
 const app = express();
-const PORT = 3001;
 
 const customMorganPOSTFormatter = (tokens, request, response) => {
     if (request.method === 'POST') {
@@ -19,7 +18,6 @@ const customMorganPOSTFormatter = (tokens, request, response) => {
 app.use(express.json());
 // app.use(morgan('tiny'));
 app.use(morgan(customMorganPOSTFormatter));
-
 
 let phonebookEntries = [
     {
@@ -112,6 +110,8 @@ const unknownEndpoint = (request, response) => {
 };
 
 app.use(unknownEndpoint);
+
+const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
     console.log('Phonebook application listening on port ' + PORT);
